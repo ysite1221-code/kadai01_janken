@@ -1,0 +1,374 @@
+.reggae-one-regular {
+    font-family: "Reggae One", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font-size: 32px;
+    font-family: "Reggae One", system-ui;
+}
+
+body {
+    background-image: url("../img/poko.png");
+    background-size: cover;
+    /* 画面いっぱいに広げる */
+    background-position: center;
+    /* 中央に配置 */
+    background-repeat: no-repeat;
+    /* 繰り返さない */
+    background-attachment: fixed;
+    /* スクロールしても固定 */
+}
+
+
+header {
+    background-color: #fff;
+    /* border-bottom: 1px solid #ccc; */
+    text-align: center;
+    position: fixed;
+    /* 画面に固定 */
+    top: 0;
+    /* 上端に張り付け */
+    left: 0;
+    width: 100%;
+    /* 横幅いっぱい */
+    z-index: 1000;
+    /* 背景画像の上に重ねる */
+    background-color: #898686;
+    /* 背景色（重要） */
+    padding: 10px 0;
+    /* 高さ調整 */
+}
+
+h1 {
+    margin: 0;
+    font-size: 30px;
+
+}
+
+#header_img {
+    height: 50px;
+    width: 50px;
+}
+
+/* ヘッダーの画像＆ページタイトル */
+.title {
+    display: flex;
+    justify-content: center;
+    background-color: #000000;
+    color: #FFF;
+    gap: 30px;
+    align-items: center;
+    margin: 0;
+}
+
+.rule {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: center;
+    
+}
+
+/* ルール内の色、白固定 */
+.rule * {
+  color: #fff;
+}
+
+/* ３箇条 */
+h2 {
+    background: rgba(255,255,255,0.2);
+    padding: 10px 30px;
+    border-left: 6px solid #fff;
+    border-right: 6px solid #fff;
+    color: #fff;
+    display: block;
+    margin: 40px 200px;
+    font-size: 38px;
+    text-align: center;
+}
+
+.rule_inner {
+    list-style: none;
+   
+
+}
+
+.rule-inner-text {
+      color: #898686;
+}
+
+.rule_inner_title{
+    font-size: 35px;
+    color: #FFF;
+   
+
+}
+
+.rule1{
+    font-size: 25px;
+}
+
+.rule input {
+  color: #000;
+  text-align: right;
+}
+
+/* ▼ 全体の横並び */
+#today {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+
+    /* ▼ ガラス風の背景  */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    padding: 20px 40px;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+
+    margin: 100px auto ;   /* ← ここがポイント：左右 auto で中央寄せ */
+    width: fit-content;
+}
+
+/* ▼ ラベル + input を縦並びでそろえる（必要なら） */
+#cash,
+#attendant_wrap {
+    padding-top: ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: right;
+}
+
+/* ▼ input の統一スタイル（サイズを揃える） */
+#cash input,
+#attendant_wrap input {
+    width: 200px;
+    height: 40px;
+    font-size: 24px;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+
+
+/* input {
+    color: #000000;
+} */
+
+main {
+    padding-top: 100px;
+    border-bottom: 1px solid #ccc;
+    /* background-color: #000000; */
+    color: #FFF;
+}
+
+footer {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+
+
+p {
+    /* font-size:200%; */
+    text-align: center;
+    /* border-bottom:1px solid #fff; */
+    height: auto;
+}
+
+.battle {
+    display: flex;           /* 横並び */
+    justify-content: center; /* 全体を中央寄せ */
+    align-items: center;     /* 縦方向を揃える */
+    gap: 80px;               /* 左右の余白 */
+    margin-top: 40px;
+}
+
+/* 左側：自分の手（縦に並ぶ） */
+.hands {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* 縦並び */
+    gap: 20px;
+}
+
+.hands_inner img {
+    width: 140px;      /* 好きなサイズに調整 */
+    height: auto;
+    cursor: pointer;
+    /* background-color: #898686; */
+}
+
+/* クリックできる手の枠そのものを装飾 */
+.hands_inner {
+    padding: 8px;
+    border-radius: 12px;
+    transition: background-color 0.15s, box-shadow 0.15s, transform 0.1s;
+}
+
+/* ホバー時の視認性アップ */
+.hands_inner:hover {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+/* 選択済み（クリックした手）のハイライト */
+.hands_inner.selected {
+    background: rgba(211, 232, 18, 0.25);
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.9); /* 金枠イメージ */
+    transform: translateY(-3px);
+}
+
+/* 右側：PCの手表示 */
+.opponent {
+    text-align: center;
+    color: #fff;       /* 背景が黒なら白字 */
+}
+
+#pc_img {
+    width: 160px;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+    display: none;   /* 最初は非表示 */
+
+}
+
+.highlight-hand {
+    background: rgba(211, 232, 18, 0.25);
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.9); /* 金枠イメージ */
+    border-radius: 12px;
+}
+
+.judge{
+   text-align: center;
+    /* display: flex;
+    justify-content: center; */
+    gap: 50px;
+}
+
+#judgement_img{
+    max-width: 160px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+    display: none;   /* 最初は非表示 */
+}
+
+/* 
+.hands {
+    padding: 0;
+    border-top: 1px solid #000000;
+    display: table;
+    /* 定義 */
+    /* table-layout: fixed; */
+    /* width: 100%; */
+
+/* ruleを除外するため、自分のじゃんけんのところは個別class指定
+.hands_inner {
+    list-style-type: none;
+    border: 1px solid #666;
+    background-color: #FFF;
+    display: table-cell;
+    /* 定義 */
+    /* cursor: pointer;
+} */ 
+
+/* li:hover {
+    background: #b1cc00;
+    color: #fff;
+} */
+
+/* じゃんけんボタンだけホバー */
+.hands_inner:hover {
+    background: #b1cc00;
+    color: #fff;
+}
+.checkpls{
+    display: flex;
+    justify-content: center; /* ボタンを中央に */
+    margin-top: 40px;
+}
+
+#destiny {
+    padding: 15px 60px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #000;
+
+    background: rgba(255, 215, 0, 0.85);      /* 金っぽい色 */
+    border: 4px solid #fff;                   /* 白枠 */
+    border-radius: 999px;                     /* 派手に丸く（カプセル型） */
+
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+    cursor: pointer;
+    text-align: center;                       /* 文字を水平中央 */
+    line-height: 1.2;                         /* 縦位置もほどよく */
+    margin: 0;                                /* ここでは margin は不要 */
+    transition: transform .2s, box-shadow .2s;
+}
+
+/* おまけ：ホバー時にちょっと浮かせる */
+#destiny:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 1);
+}
+/* .hands:hover{
+    display: block;
+    background-color: #000000;
+    background: #0066CC;
+    color:#fff;
+} */
+
+#oshiharai {
+    margin: 60px auto;            /* ← センター寄せ（左右 auto） */
+    padding: 20px 40px;
+    width: fit-content;           /* 中身の幅に合わせて縮む */
+    
+    text-align: center;
+    background: rgba(255, 215, 0, 0.25);   /* 金色の薄膜 */
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    border-radius: 25px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);    /* Safari対策 */
+
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8),
+                0 0 40px rgba(255, 215, 0, 0.5); /* ← 金オーラ */
+}
+
+/* ラベル（おめでとう！）を大きく */
+#oshiharai label {
+    display: block;
+    font-size: 42px;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-shadow: 0 0 8px #000;    /* 可読性UP */
+}
+
+/* 金額の入力欄もド派手に */
+#premium {
+    font-size: 36px;
+    padding: 8px 20px;
+    border-radius: 12px;
+    border: 3px solid #fff;
+    text-align: center;
+    width: 260px;
+    background: rgba(255,255,255,0.85);
+    color: #000;
+    font-weight: bold;
+}

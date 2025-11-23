@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" href="css/sample.css">
+    <title>じゃんけん</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Reggae+One&display=swap');
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <!-- ヘッダータイトル -->
+        <div class="title">
+            <img id="header_img" src="img/otokogi.png" alt="">
+            <h1>漢気じゃんけん（おひとり様用）</h1>
+        </div>
+
+    </header>
+
+    <main>
+
+        <!-- ルールの記載 -->
+        <div class="rule">
+            <h2>”掟"　　一人漢気じゃんけん三箇条</h2>
+            <img src="" alt="">
+
+            <div class="rule_img">
+                <ul class="rule_inner">
+                    <li class="rule1">
+                        <p class="rule_inner_title">一つ、勝つ者すべてを払うべし</p>
+                        <p class="rule-inner-text">払うと決めるから払うのであって、払いたいから勝つわけではない。</p>
+                    </li>
+                    <li class="rule1">
+                        <p class="rule_inner_title">一つ、あいこする者、半分を背負うべし。</p>
+                        <p class="rule-inner-text">五分と五分というのは、半分でも全力ということを知るためにある。</p>
+                    </li>
+                    <li class="rule1">
+                        <p class="rule_inner_title">一つ、負ける者、何も払わず己を知るべし。</p>
+                        <p class="rule-inner-text">払わないという選択は、払いたくても払えないという現実を教えてくれる。</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="today">
+            <h2>”確認” 　今日の仕上がり</h2>
+            <div id="today">
+                <div id="cash">
+                    <label for="okaikei">本日のお会計</label>
+                    <input type="text" id="okaikei">
+                    <span class="unit">円</span>
+                </div>
+
+                <div id="attendant_wrap">
+                    <label for="attendant">参加人数</label>
+                    <input type="text" id="attendant">
+                    <span class="unit">人</span>
+                </div>
+            </div>
+        </div>
+
+
+        <h2>"じゃんけん”　　 いざ勝負</h2>
+        <div class="battle">
+            <div class="you">
+                <p>【貴様の選択】</p>
+                <p>さぁ選べ！</p>
+            </div>
+            <!-- 左：自分の手 -->
+            <ul class="hands">
+                <li id="gu_btn" class="hands_inner"><img src="./img/image.png" alt="グー"></li>
+                <li id="cho_btn" class="hands_inner"><img src="./img/チョキ.png" alt="チョキ"></li>
+                <li id="par_btn" class="hands_inner"><img src="./img/パー.png" alt="パー"></li>
+            </ul>
+            <p class="vs">VS</p>
+            <!-- 右：コンピュータの手 -->
+            <div class="opponent">
+                <p>【敵の手口】</p>
+                <p>油断するなよ？</p>
+                <img id="pc_img" src="img/blank.png" alt="？？" />
+                <p id="pc_hands">なに？</p>
+            </div>
+        </div>
+
+        <h2>”結果発表” 勝負の行方は</h2>
+        <div class="judge">
+            <div id="judgement">しばしまて</div>
+            <img id="judgement_img" src="img/blank.png" alt="??">
+        </div>
+
+        <h2>”お楽しみ” 本日のあんたのお会計</h2>
+        <div class="checkpls">
+            <button id="destiny">さぁ！払いたまえ！</button>
+        </div>
+        <p> ↑ 押して発射！</p>
+        <!-- お支払額の表示 -->
+        <div id="oshiharai">
+            <label id="premium_text" for="premium">？？</label>
+            <input type="text" id="premium" name="premium">
+        </div>
+    </main>
+
+    <footer></footer>
+    <script>
+        // PCの手画像マップ（1:グー, 2:チョキ, 3:パー）
+        const pcImgMap = {
+            1: "img/image.png",   // グー
+            2: "img/チョキ.png",  // チョキ
+            3: "img/パー.png"    // パー
+        };
+
+        // 勝敗ごとの結果画像マップ
+        const judgeImageMap = {
+            win: "img/勝ち.png",
+            lose: "img/負け.png",
+            draw: "img/aiko.png"
+        };
+
+        // 共通：勝敗に応じて結果画像を切り替える関数
+        function updateJudgeImage() {
+            const code = $("#judgement").data("result");   // win / lose / draw
+            const img = judgeImageMap[code];
+            if (img) {
+                $("#judgement_img").attr("src", img).show();
+            } else {
+                $("#judgement_img").hide();
+            }
+        }
+
+        // abeMode flag (assumed to be defined somewhere, default false)
+        let abeMode = false;
+
+  
+        $("#gu_btn").on("click", function () {
+            const pc = Math.ceil(Math.random() * 3);
+
+            if (pc === 1) {
+                $("#pc_hands").text("グー");
+                $("#judgement").text("あいこ").data("result", "draw");
+            } else if (pc === 2) {
+                $("#pc_hands").text("チョキ");
+                $("#judgement").text("勝ち").data("result", "win");
+            } else {
+                $("#pc_hands").text("パー");
+                $("#judgement").text("負け").data("result", "lose");
+            }
+
+            $("#pc_img").attr("src", pcImgMap[pc]).show();
+
+            if (abeMode) {
+                $("#gu_btn img").attr("src","img/terumae.png");
+                $("#cho_btn img").attr("src","img/terumae.png");
+                $("#par_btn img").attr("src","img/terumae.png");
+            }
+
+            updateJudgeImage();   // ★ ここで結果画像を更新,結果は持ってるので表示だけ
+        });
+
+        $("#cho_btn").on("click", function () {
+            const pc = Math.floor(Math.random() * 3) + 1;
+
+            if (pc === 1) {
+                $("#pc_hands").text("グー");
+                $("#judgement").text("負け").data("result", "lose");
+            } else if (pc === 2) {
+                $("#pc_hands").text("チョキ");
+                $("#judgement").text("あいこ").data("result", "draw");
+            } else {
+                $("#pc_hands").text("パー");
+                $("#judgement").text("勝ち").data("result", "win");
+            }
+
+            $("#pc_img").attr("src", pcImgMap[pc]).show();
+
+            if (abeMode) {
+                $("#gu_btn img").attr("src","img/terumae.png");
+                $("#cho_btn img").attr("src","img/terumae.png");
+                $("#par_btn img").attr("src","img/terumae.png");
+            }
+
+            updateJudgeImage();   // ★
+        });
+
+        $("#par_btn").on("click", function () {
+            const pc = Math.floor(Math.random() * 3) + 1;
+
+            if (pc === 1) {
+                $("#pc_hands").text("グー");
+                $("#judgement").text("勝ち").data("result", "win");
+            } else if (pc === 2) {
+                $("#pc_hands").text("チョキ");
+                $("#judgement").text("負け").data("result", "lose");
+            } else {
+                $("#pc_hands").text("パー");
+                $("#judgement").text("あいこ").data("result", "draw");
+            }
+
+            $("#pc_img").attr("src", pcImgMap[pc]).show();
+
+            if (abeMode) {
+                $("#gu_btn img").attr("src","img/terumae.png");
+                $("#cho_btn img").attr("src","img/terumae.png");
+                $("#par_btn img").attr("src","img/terumae.png");
+            }
+
+            updateJudgeImage();   // ★
+        });
+
+                // 「さぁ！払いたまえ！」ボタンを押したときの計算
+        $("#destiny").on("click", function () {
+            // 本日のお会計（空なら 0）
+            const amount = Number($("#okaikei").val()) || 0;
+
+            // 勝敗コード（win / draw / lose）
+            const code = $("#judgement").data("result");
+
+            // 参加人数（1 未満や変な値なら 1 とみなす）
+            const rawN = parseInt($("#attendant").val(), 10);
+            const n = (isNaN(rawN) || rawN <= 0) ? 1 : rawN;
+
+            // 勝敗ごとの係数
+            const rateTable = {
+                win: 1.0,     // 勝ち → 全額
+                draw: 1 / n,  // あいこ → 人数割り
+                lose: 0.0     // 負け → 0 円
+            };
+            const rate = rateTable[code] ?? 0.0;
+
+            // 支払い金額
+            const pay = Math.floor(amount * rate);
+
+            // 3 桁区切りで表示
+            $("#premium").val(pay.toLocaleString()+ "円");
+
+            // 最後のコメントの出しわけ
+            if(code == "win"){
+                $("#premium_text").text("おめでとう！店ごと買ってくれ！");
+            }else if(code == "lose"){
+                $("#premium_text").text("残念！財布は捨てて帰ってくれ！");
+            }else if(code == "draw"){
+                $("#premium_text").text("つまらんやろうだな！自販機のお釣り全部１０円で出ろ！");
+            }
+            
+        });
+
+        //計算はこれでやる→ https://note.com/ruquia7/n/n0fe647637d9e
+
+    </script>
+</body>
+
+</html>
